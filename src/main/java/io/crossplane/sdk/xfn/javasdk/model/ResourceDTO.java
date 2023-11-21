@@ -1,28 +1,25 @@
 package io.crossplane.sdk.xfn.javasdk.model;
 
 import com.google.gson.internal.LinkedTreeMap;
-import com.google.protobuf.Value;
+import com.google.protobuf.Struct;
 
-import java.util.Map;
-
-public class Resource {
+public class ResourceDTO {
 
 
-    LinkedTreeMap resource;
+    Struct resource;
 
-    public LinkedTreeMap getResource() {
+
+    public Struct getResource() {
         return resource;
     }
 
-    public void setResource(LinkedTreeMap resource) {
+    public void setResource(Struct resource) {
         this.resource = resource;
     }
 
-
-
     @Override
     public String toString() {
-        return "Resource{" +
+        return "ResourceDTO{" +
                 ", resource=" + resource +
                 '}';
     }

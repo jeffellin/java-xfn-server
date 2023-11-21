@@ -1,11 +1,11 @@
 package io.crossplane.sdk.xfn.javasdk;
 
 import apiextensions.fn.proto.v1beta1.RunFunction;
-import io.crossplane.sdk.xfn.javasdk.config.ConversionServiceAdapter;
-import io.crossplane.sdk.xfn.javasdk.mappers.CarMapper;
-import io.crossplane.sdk.xfn.javasdk.model.Car;
-import io.crossplane.sdk.xfn.javasdk.model.CarDto;
-import io.crossplane.sdk.xfn.javasdk.model.CarType;
+import com.google.protobuf.Struct;
+import com.google.protobuf.Value;
+//import io.crossplane.sdk.xfn.javasdk.config.ConversionServiceAdapter;
+import io.crossplane.sdk.xfn.javasdk.mappers.*;
+import io.crossplane.sdk.xfn.javasdk.model.*;
 import org.mapstruct.factory.Mappers;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.ConversionService;
+
+import java.util.TreeMap;
 
 @SpringBootApplication
 public class JavaSdkApplication {
@@ -22,21 +24,27 @@ public class JavaSdkApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx,
-											   ConversionServiceAdapter adapter) {
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx
+											  ) {
 		return args -> {
+			Struct s = Struct.newBuilder().putFields("key", Value.newBuilder()
+					.setStringValue("e")
+					.setBoolValue(false).build()).build();
+			//RunFunction.Resource resource = RunFunction.Resource.newBuilder().setResource(s).build();
+			//RunFunctionMapper rfm = new RunFunctionMapperImpl();
+			StructMapper sm = new StructMapperImpl();
+			ResourceDTO rdto = new ResourceDTO();
+			rdto.setResource(s);
+			Resource r = sm.fromStruct(rdto);
+			System.err.println(r);
 
-			RunFunction.Resource resource = RunFunction.Resource.newBuilder().build();
+			ResourceDTO dt = sm.toStruct(r);
+
+			System.err.println(dt);
 
 
-			final Car car = new Car();
-			car.setMake("Ford");
-			car.setNumberOfSeats(2);
-			car.setType(CarType.SEDAN);
-			adapter.mapCarToCarDto(car);
-			System.err.println(adapter.mapCarToCarDto(car));
-			//final CarDto carDto = conversionService.convert(car, CarDto.class);
-			//System.err.println(carDto);
+			//System.err.println(adapter.mapResourceToResource(resource));
+
 		};
 	}
 }
