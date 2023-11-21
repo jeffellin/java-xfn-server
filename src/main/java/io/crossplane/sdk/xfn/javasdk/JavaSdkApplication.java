@@ -1,5 +1,6 @@
 package io.crossplane.sdk.xfn.javasdk;
 
+import apiextensions.fn.proto.v1beta1.RunFunction;
 import io.crossplane.sdk.xfn.javasdk.config.ConversionServiceAdapter;
 import io.crossplane.sdk.xfn.javasdk.mappers.CarMapper;
 import io.crossplane.sdk.xfn.javasdk.model.Car;
@@ -24,6 +25,10 @@ public class JavaSdkApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx,
 											   ConversionServiceAdapter adapter) {
 		return args -> {
+
+			RunFunction.Resource resource = RunFunction.Resource.newBuilder().build();
+
+
 			final Car car = new Car();
 			car.setMake("Ford");
 			car.setNumberOfSeats(2);
