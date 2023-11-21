@@ -8,7 +8,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
 public class XFunctionController extends FunctionRunnerServiceGrpc.FunctionRunnerServiceImplBase {
 
-    public void runFunction(RunFunction.RunFunctionRequest request,
+    public void runFunction(RunFunction.RunFunctionRequest rexquest,
                             StreamObserver<RunFunction.RunFunctionResponse> responseObserver) {
 
     }

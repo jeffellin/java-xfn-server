@@ -22,7 +22,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>io.crossplane.sdk.xfn</groupId>
+			<artifactId>java-sdk</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -63,6 +67,21 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>no.entur.mapstruct.spi</groupId>
+							<artifactId>protobuf-spi-impl</artifactId>
+							<version>1.44</version>
+						</path>
+					</annotationProcessorPaths>
+					<compilerArgs>
+						<arg>-AmapstructSpi.enumPostfixOverrides=com.company.name=INVALID</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
